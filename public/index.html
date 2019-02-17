@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>home env</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="https://www.gstatic.com/firebasejs/5.8.3/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBU7GfubemlA6me0OnEi5EVyPw5eqQsF0I",
+        authDomain: "home-env.firebaseapp.com",
+        databaseURL: "https://home-env.firebaseio.com",
+        projectId: "home-env",
+        storageBucket: "home-env.appspot.com",
+        messagingSenderId: "636343174191"
+      };
+      firebase.initializeApp(config);
+    </script>
+    <script src="render.js"></script>
+  </head>
+  <body>
+    <div id="container"></div>
+  </body>
+</html>
