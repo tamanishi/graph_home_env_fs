@@ -18,7 +18,8 @@
         storageBucket: "home-env.appspot.com",
         messagingSenderId: "636343174191"
       };
-      firebase.initializeApp(config);
+      var app = firebase.initializeApp(config);
+      console.log(app.name);
     </script>
     <script src="render.js"></script>
   </head>
