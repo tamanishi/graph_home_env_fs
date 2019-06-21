@@ -197,6 +197,19 @@ async function render() {
   });
 }
 
+firebase.auth().signInAnonymously().catch(function(error) {
+  console.log("signIn failed");
+});
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    console.log("isAnonymous : " + user.isAnonymous);
+    console.log("user.uid : " + user.uid);
+  } else {
+    console.log("signOut");
+  }
+});
+
 render();
 
 setInterval(function () {
