@@ -13,18 +13,17 @@ async function render() {
     };
     rawData.unshift(meas);
   });
-  // console.log(rawData[0].timestamp);
-  let startDateTime = Date.parse(rawData[0].timestamp);
+
   var temperatureData = rawData.map((e, i, a) => {
-    return Number(e.temperature);
+    return [Date.parse(e.timestamp), Number(e.temperature)];
   });
 
   var humidityData = rawData.map((e, i, a) => {
-    return Number(e.humidity);
+    return [Date.parse(e.timestamp), Number(e.humidity)];
   });
 
   var pressureData = rawData.map((e, i, a) => {
-    return Number(e.pressure);
+    return [Date.parse(e.timestamp), Number(e.pressure)];
   });
 
   // console.log(temperatureData);
@@ -39,6 +38,7 @@ async function render() {
 
   Highcharts.chart('container', {
     chart: {
+      type: 'spline',
       backgroundColor: '#222222'
     },
 
@@ -48,10 +48,6 @@ async function render() {
         color: '#eeeeee'
       }
     },
-
-    // subtitle: {
-    //   text: 'Source: thesolarfoundation.com'
-    // },
 
     xAxis: {
       type: 'datetime',
@@ -73,15 +69,13 @@ async function render() {
 
     yAxis: [
       {
-        // className: "highcharts-color-0",
         title: {
-          text: "temperature",
+          text: "temperature (℃)",
           style: {
             color: "#f18c16"
           }
         },
         labels: {
-          format: "{value}℃",
           style: {
             color: "#f18c16"
           }
@@ -92,13 +86,12 @@ async function render() {
       {
         gridLineWidth: 0,
         title: {
-          text: 'humidity',
+          text: 'humidity (%)',
           style: {
             color: "#7cb5ec"
           }
         },
         labels: {
-          format: "{value} %",
           style: {
             color: "#7cb5ec"
           }
@@ -110,13 +103,12 @@ async function render() {
       {
         gridLineWidth: 0,
         title: {
-          text: 'pressure',
+          text: 'pressure (hPa)',
           style: {
             color: "#90ed7d"
           }
         },
         labels: {
-          format: "{value} hPa",
           style: {
             color: "#90ed7d"
           }
@@ -144,38 +136,26 @@ async function render() {
         marker: {
           enabled: false
         }
-        //   label: {
-        //     connectorAllowed: false
-        //   }
       }
     },
 
     series: [
       {
-        name: 'temperature',
+        name: 'temperature (℃)',
         data: temperatureData,
-        type: 'spline',
         color: '#f18c16',
-        pointStart: startDateTime,
-        pointInterval: 60 * 15 * 1000,
         yAxis: 0
       },
       {
-        name: 'humidity',
+        name: 'humidity (%)',
         data: humidityData,
-        type: 'spline',
         color: '#7cb5ec',
-        pointStart: startDateTime,
-        pointInterval: 60 * 15 * 1000,
         yAxis: 1
       },
       {
-        name: 'pressure',
+        name: 'pressure (hPa)',
         data: pressureData,
-        type: 'spline',
         color: '#90ed7d',
-        pointStart: startDateTime,
-        pointInterval: 60 * 15 * 1000,
         yAxis: 2
       }
     ],
@@ -186,29 +166,22 @@ async function render() {
           maxWidth: 500
         },
         chartOptions: {
-          legend: {
-            layout: 'horizontal',
-            align: 'center',
-            verticalAlign: 'bottom'
-          }
+          yAxis: [
+            {
+              title: ''
+            },
+            {
+              title: ''
+            },
+            {
+              title: ''
+            }
+          ]
         }
       }]
     }
   });
 }
-
-firebase.auth().signInAnonymously().catch(function(error) {
-  console.log("signIn failed");
-});
-
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    console.log("isAnonymous : " + user.isAnonymous);
-    console.log("user.uid : " + user.uid);
-  } else {
-    console.log("signOut");
-  }
-});
 
 render();
 
