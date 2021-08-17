@@ -70,7 +70,7 @@ async function render() {
     yAxis: [
       {
         title: {
-          text: "temperature (℃)",
+          text: 'temperature (\'C)',
           style: {
             color: "#f18c16"
           }
@@ -96,7 +96,7 @@ async function render() {
             color: "#7cb5ec"
           }
         },
-        ceiling: 80,
+        ceiling: 90,
         floor: 20,
         opposite: true
       },
@@ -141,7 +141,7 @@ async function render() {
 
     series: [
       {
-        name: 'temperature (℃)',
+        name: 'temperature (\'C)',
         data: temperatureData,
         color: '#f18c16',
         yAxis: 0
