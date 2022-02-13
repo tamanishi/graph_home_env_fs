@@ -9,7 +9,8 @@ async function render() {
       timestamp: data.datetime,
       temperature: data.temperature,
       pressure: data.pressure,
-      humidity: data.humidity
+      humidity: data.humidity,
+      co2: data.co2
     };
     rawData.unshift(meas);
   });
@@ -26,9 +27,14 @@ async function render() {
     return [Date.parse(e.timestamp), Number(e.pressure)];
   });
 
+  var co2Data = rawData.map((e, i, a) => {
+    return [Date.parse(e.timestamp), Number(e.co2)]
+  });
+
   // console.log(temperatureData);
   // console.log(humidityData);
   // console.log(pressureData);
+  // console.log(co2Data);
 
   Highcharts.setOptions({
     global: {
@@ -116,6 +122,23 @@ async function render() {
         ceiling: 1300,
         floor: 800,
         opposite: true
+      },
+      {
+        gridLineWidth: 0,
+        title: {
+          text: 'co2 (ppm)',
+          style: {
+            color: "#ffee58"
+          }
+        },
+        labels: {
+          style: {
+            color: "#ffee58"
+          }
+        },
+        ceiling: 2500,
+        floor: 400,
+        opposite: true
       }
     ],
 
@@ -157,7 +180,14 @@ async function render() {
         data: pressureData,
         color: '#90ed7d',
         yAxis: 2
+      },
+      {
+        name: 'co2 (ppm)',
+        data: co2Data,
+        color: '#ffee58',
+        yAxis: 3
       }
+ 
     ],
 
     responsive: {
@@ -167,6 +197,9 @@ async function render() {
         },
         chartOptions: {
           yAxis: [
+            {
+              title: ''
+            },
             {
               title: ''
             },
