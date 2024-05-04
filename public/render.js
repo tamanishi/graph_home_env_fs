@@ -10,7 +10,8 @@ async function render() {
       temperature: data.temperature,
       pressure: data.pressure,
       humidity: data.humidity,
-      co2: data.co2
+      co2: data.co2,
+      dust: data.dust
     };
     rawData.unshift(meas);
   });
@@ -31,10 +32,15 @@ async function render() {
     return [Date.parse(e.timestamp), Number(e.co2)]
   });
 
+  var dustData = rawData.map((e, i, a) => {
+    return [Date.parse(e.timestamp), Number(e.dust)]
+  });
+
   // console.log(temperatureData);
   // console.log(humidityData);
   // console.log(pressureData);
   // console.log(co2Data);
+  // console.log(dustData);
 
   Highcharts.setOptions({
     global: {
@@ -139,6 +145,23 @@ async function render() {
         ceiling: 2500,
         floor: 400,
         opposite: true
+      },
+      {
+        gridLineWidth: 0,
+        title: {
+          text: 'dust (ug/m3)',
+          style: {
+            color: "#ca99ff"
+          }
+        },
+        labels: {
+          style: {
+            color: "#ca99ff"
+          }
+        },
+        ceiling: 30,
+        floor: 0,
+        opposite: true
       }
     ],
 
@@ -186,6 +209,12 @@ async function render() {
         data: co2Data,
         color: '#ffee58',
         yAxis: 3
+      },
+      {
+        name: 'dust (ug/m3)',
+        data: dustData,
+        color: '#ca99ff',
+        yAxis: 4
       }
  
     ],
@@ -197,6 +226,9 @@ async function render() {
         },
         chartOptions: {
           yAxis: [
+            {
+              title: ''
+            },
             {
               title: ''
             },
