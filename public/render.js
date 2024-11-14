@@ -92,7 +92,7 @@ async function render() {
             color: "#f18c16"
           }
         },
-        ceiling: 35,
+        ceiling: 37,
         floor: 0,
       },
       {
@@ -159,7 +159,7 @@ async function render() {
             color: "#ca99ff"
           }
         },
-        ceiling: 30,
+        ceiling: 35,
         floor: 0,
         opposite: true
       }
