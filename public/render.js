@@ -45,6 +45,9 @@ async function render() {
   Highcharts.setOptions({
     global: {
       useUTC: false
+    },
+    time: {
+      timezone: 'Asia/Tokyo'
     }
   });
 
@@ -159,7 +162,7 @@ async function render() {
             color: "#ca99ff"
           }
         },
-        ceiling: 35,
+        ceiling: 300,
         floor: 0,
         opposite: true
       }
