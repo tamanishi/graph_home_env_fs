@@ -1,8 +1,8 @@
 async function render() {
-  var db = firebase.firestore();
-  var measurementsRef = db.collection('measurements');
-  var rawData = [];
-  let last1DaySnapshot = await measurementsRef.orderBy('datetime', 'desc').limit(24 * 4).get();
+  const db = firebase.firestore();
+  const measurementsRef = db.collection('measurements');
+  let rawData = [];
+  const last1DaySnapshot = await measurementsRef.orderBy('datetime', 'desc').limit(24 * 4).get();
   last1DaySnapshot.forEach(doc => {
     let data = doc.data();
     let meas = {
@@ -16,24 +16,24 @@ async function render() {
     rawData.unshift(meas);
   });
 
-  var temperatureData = rawData.map((e, i, a) => {
+  const temperatureData = rawData.map((e, i, a) => {
     return [Date.parse(e.timestamp), Number(e.temperature)];
   });
 
-  var humidityData = rawData.map((e, i, a) => {
+  const humidityData = rawData.map((e, i, a) => {
     return [Date.parse(e.timestamp), Number(e.humidity)];
   });
 
-  var pressureData = rawData.map((e, i, a) => {
+  const pressureData = rawData.map((e, i, a) => {
     return [Date.parse(e.timestamp), Number(e.pressure)];
   });
 
-  var co2Data = rawData.map((e, i, a) => {
-    return [Date.parse(e.timestamp), Number(e.co2)]
+  const co2Data = rawData.map((e, i, a) => {
+    return [Date.parse(e.timestamp), Number(e.co2)];
   });
 
-  var dustData = rawData.map((e, i, a) => {
-    return [Date.parse(e.timestamp), Number(e.dust)]
+  const dustData = rawData.map((e, i, a) => {
+    return [Date.parse(e.timestamp), Number(e.dust)];
   });
 
   // console.log(temperatureData);
