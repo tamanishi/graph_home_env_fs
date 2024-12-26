@@ -145,7 +145,7 @@ async function render() {
             color: "#ffee58"
           }
         },
-        ceiling: 2500,
+        ceiling: 3000,
         floor: 400,
         opposite: true
       },
